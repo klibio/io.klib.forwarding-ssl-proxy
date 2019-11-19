@@ -1,0 +1,17 @@
+language: minimal
+services:
+- docker
+
+env:
+  global:
+  - version=0.1.0
+  - date=$(date +%Y%m%d-%H%M%S)
+  - dockerrepo=klibio/io.klib.forwarding-ssl-proxy
+  - commit=`echo "$TRAVIS_COMMIT"|cut -c1-7`
+  - dockerversion=${version}.${date}_${commit}
+
+script:
+- docker build -t $dockerrepo:${TRAVIS_BRANCH}-$dockerversion -t $dockerrepo:${TRAVIS_BRANCH}-latest .
+- docker login -u $DCKUSR -p $DCKPW
+- docker push $dockerrepo:${TRAVIS_BRANCH}-$dockerversion
+- docker push $dockerrepo:${TRAVIS_BRANCH}-latest
