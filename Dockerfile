@@ -20,7 +20,7 @@ RUN	cd /app/ && wget http://nginx.org/download/nginx-1.17.5.tar.gz; \
 	cd /app/nginx-1.17.5/ && ./configure --add-module=/app/ngx_http_proxy_connect_module; \
 	make && make install;
 
-ADD test.conf /usr/local/nginx/conf/nginx.conf
+ADD proxy.conf /usr/local/nginx/conf/nginx.conf
 
 EXPOSE 8080
 
